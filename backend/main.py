@@ -1,3 +1,4 @@
+from linecache import cache
 from price import *
 from news import *
 from sentiment import *
@@ -25,19 +26,19 @@ while True:
         print("Tickers cannot contain non-alphabetic characters. Please input a valid stock ticker.")
         continue
    
-   ''' 
-    WILL WRITE LATER - Check is ticker is a real stock ticker
-    if not valid_ticker(ticker):
-        print("Ticker not found. Please input a valid stock ticker.")
-    '''
+   price_data = get_price_data(ticker)
+   if not price_data: # checks if user inputs a real ticker
+       print(f"Ticker '{ticker}' not found. Please input a valid stock ticker.")
+       continue
    
    ticker_list.append(ticker)
+   cache[ticker] = price_data
 
 print("Processing Tickers...")
 
 for ticker in ticker_list:
-    price = get_price_data(ticker)
+    price = cache[ticker]
     articles = get_news_articles(ticker)
     sentiment_score = analyze_sentiment(articles)
-    insight = generate_insight(ticker, price, sentiment_score)
-    print(insight)
+    headline = generate_headline(ticker, price, sentiment_score)
+    print(headline)
