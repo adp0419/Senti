@@ -20,6 +20,7 @@ def get_price_data(ticker):
             "latest_price": round(latest_price, 2),
             "percent_change": round(percent_change, 2)
         }
+    
     except Exception as e:
         print(f"ERROR: Could not find data for ticker {ticker}: {e}")
         return None
