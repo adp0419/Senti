@@ -38,7 +38,9 @@ print("Processing Tickers...")
 
 for ticker in ticker_list:
     price = cache[ticker]
-    print(get_news_articles(ticker))
-#     sentiment_score = analyze_sentiment(articles)
+    articles = get_news_articles(ticker)
+    print(articles)
+    sentiment_score = analyze_sentiment(articles)
+    print(sentiment_score)
 #     headline = generate_headline(ticker, price, sentiment_score)
 #     print(headline)
