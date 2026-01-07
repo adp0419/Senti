@@ -1,4 +1,3 @@
-from linecache import cache
 from price import *
 from news import *
 from sentiment import *
@@ -7,6 +6,7 @@ from headline import *
 print("This project will analyze stock news sentiment and be a source of information for why a stock is moving how it is.")
 print("Input as many stock tickers you want. Press [enter] when done.")
 ticker_list = []
+cache = {}
 
 while True:
    
@@ -39,8 +39,8 @@ print("Processing Tickers...")
 for ticker in ticker_list:
     price = cache[ticker]
     articles = get_news_articles(ticker)
-    print(articles)
+    # print(articles)
     sentiment_score = analyze_sentiment(articles)
-    print(sentiment_score)
-#     headline = generate_headline(ticker, price, sentiment_score)
-#     print(headline)
+    # print(sentiment_score)
+    headline = generate_headline(ticker, price, sentiment_score)
+    print(headline)
