@@ -18,4 +18,3 @@ def analyze_sentiment(articles):
                 sentiment -= 1
     
     return sentiment
-    
