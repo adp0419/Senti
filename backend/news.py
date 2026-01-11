@@ -35,12 +35,30 @@ def get_fake_news(ticker): # old function using fake news before I implemented A
 def get_news_articles(ticker): # pulling articles from Finnhub Company News API
     finnhub_client = fh.Client(api_key=FINNHUB_API_KEY)
     
+    date_current = datetime.datetime.now().date()
+    date_past = date_current - datetime.timedelta(days=7) # 7 days from current date | will display news from past week
+
+    raw_articles = finnhub_client.company_news(ticker, _from=date_past.isoformat(), to=date_current.isoformat())
+
+    articles = []
+
+    for article in raw_articles:
+        articles.append({
+            "headline": article.get("headline", ""),
+            "summary": article.get("summary", ""),
+            "source": article.get("source", ""),
+            "date": datetime.datetime.fromtimestamp(article.get("datetime", 0)).strftime("%Y-%m-%d"),
+            "url": article.get("url", "")
+        })
     
-    print(finnhub_client.general_news('general', min_id=0)) # temporary print to check if API is working
+    return articles 
 
 
-if __name__ == "__main__":
-    ticker = "AAPL"  # pick any ticker to test
+if __name__ == "__main__": # testing code
     import pprint
-    articles = get_news_articles(ticker)
-    pprint.pprint(articles)
+
+    test_ticker = "AAPL"
+    articles = get_news_articles(test_ticker)
+
+    print(f"\nFetched {len(articles)} articles for {test_ticker}\n")
+    pprint.pprint(articles[:3])
