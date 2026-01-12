@@ -9,12 +9,12 @@ def analyze_sentiment(articles):
     sentiment = 0
 
     for article in articles:
-        title = article.get("title", "").lower()
+        text = article.get("headline", "").lower() + " " + article.get("summary", "").lower() 
         for word in positive_keywords:
-            if word in title:
+            if word in text:
                 sentiment += 1
         for word in negative_keywords:
-            if word in title:
+            if word in text:
                 sentiment -= 1
     
     return sentiment
