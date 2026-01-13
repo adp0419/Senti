@@ -64,30 +64,29 @@ def keyword_sentiment(articles): # old simple sentiment analysis using rule-base
             if word in text:
                 sentiment -= 1
     
-if __name__ == "__main__":
-    # Sample test articles
-    sample_articles = [
-        {
-            "headline": "AAPL beats quarterly earnings expectations",
-            "summary": "Apple has exceeded analyst expectations this quarter, showing strong growth in iPhone sales.",
-            "source": "Financial Times",
-            "date": "2026-01-03",
-            "url": "https://example.com/article1"
-        },
-        {
-            "headline": "AAPL faces supply chain issues",
-            "summary": "Delays in the supply chain may affect Apple's production and revenue in the coming months.",
-            "source": "Bloomberg",
-            "date": "2026-01-02",
-            "url": "https://example.com/article2"
-        }
-    ]
+# if __name__ == "__main__": # testing code
+#     sample_articles = [
+#         {
+#             "headline": "AAPL beats quarterly earnings expectations",
+#             "summary": "Apple has exceeded analyst expectations this quarter, showing strong growth in iPhone sales.",
+#             "source": "Financial Times",
+#             "date": "2026-01-03",
+#             "url": "https://example.com/article1"
+#         },
+#         {
+#             "headline": "AAPL faces supply chain issues",
+#             "summary": "Delays in the supply chain may affect Apple's production and revenue in the coming months.",
+#             "source": "Bloomberg",
+#             "date": "2026-01-02",
+#             "url": "https://example.com/article2"
+#         }
+#     ]
 
-    scored = analyze_sentiment(sample_articles)
-    for article in scored:
-        print(f"Headline: {article['headline']}")
-        print(f"Sentiment: {article['sentiment']}")
-        print("-----------")
+#     scored = analyze_sentiment(sample_articles)
+#     for article in scored:
+#         print(f"Headline: {article['headline']}")
+#         print(f"Sentiment: {article['sentiment']}")
+#         print("-----------")
 
-    agg_score = aggregate_sentiment(scored)
-    print(f"Aggregated Sentiment Score: {agg_score:.3f}")
+#     agg_score = aggregate_sentiment(scored)
+#     print(f"Aggregated Sentiment Score: {agg_score:.3f}")

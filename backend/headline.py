@@ -1,12 +1,5 @@
 def generate_headline(ticker, price_data, sentiment_score):
-    # if sentiment_score > 0:
-    #     direction = "positive"
-    # elif sentiment_score < 0:
-    #     direction = "negative"
-    # else:
-    #     direction = "neutral"
-    # return f"{ticker} | {price_data['percent_change']}% | {direction} sentiment"
-
+    
     if not price_data:
         return f"{ticker}: No price data available."
     
@@ -17,16 +10,16 @@ def generate_headline(ticker, price_data, sentiment_score):
     else:
         direction = "stable"
 
-    if sentiment_score >= 3:
+    if sentiment_score >= 0.4:
         sentiment = "strongly positive"
-    elif sentiment_score > 0:
+    elif sentiment_score >= 0.1:
         sentiment = "slightly positive"
-    elif sentiment_score == 0:
-        sentiment = "mixed"
-    elif sentiment_score > -3:
+    elif sentiment_score <= -0.4:
+        sentiment = "strongly negative"
+    elif sentiment_score <= -0.1:
         sentiment = "slightly negative"
     else:
-        sentiment = "strongly negative"
+        sentiment = "neutral"
 
     if direction == "up" and sentiment in ["strongly positive", "slightly positive"]:
         interpretation = "news-driven rally"
@@ -40,9 +33,8 @@ def generate_headline(ticker, price_data, sentiment_score):
         interpretation = "uncertainty / consolidation"
 
     return (
-        f"{ticker} is {direction} {abs(price_data['percent_change']):.2f}% over the selected time period.\n"
-        f"Recent news sentiment is {sentiment}, based on current headlines.\n"
-        f"{interpretation}"
+        f"{ticker} | {price_data['latest_price']} | {abs(price_data['percent_change']):.2f}%\n"
+        f"Sentiment Score: {sentiment_score}\n"
+        f"Interpretation: Based on current headlines, recent news sentiment is {sentiment}.\n"
+        f"This indicates a potenital {interpretation}.\n"
     )
-
-
